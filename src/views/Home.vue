@@ -38,7 +38,7 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 0 20px;
+    padding-right: 20px;
     box-sizing: border-box;
   }
 
