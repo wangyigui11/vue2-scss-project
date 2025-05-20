@@ -21,7 +21,9 @@ export const cardCustomTitleMap = {
 export const situationMap = {
   patientReception: {
     title: '患者接收综合态势',
-    bgImg: cardCustomTitleMap.title1
+    bgImg: cardCustomTitleMap.title1,
+    
+    
   },
   emergencyResponse: {
     title: '应急响应综合态势',
@@ -46,6 +48,18 @@ export const situationMap = {
   },
   gradeAnalysis: {
     title: '分级诊治分析',
+    bgImg: cardCustomTitleMap.title2
+  },
+  genderAnalysis: {
+    title: '性别分布',
+    bgImg: cardCustomTitleMap.title2
+  },
+  ageAnalysis: {
+    title: '年龄分布',
+    bgImg: cardCustomTitleMap.title2
+  },
+  patientRegion: {
+    title: '患者地区分布',
     bgImg: cardCustomTitleMap.title2
   },
 };

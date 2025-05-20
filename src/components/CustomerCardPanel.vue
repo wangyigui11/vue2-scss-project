@@ -1,8 +1,11 @@
 <template>
-  <div class="customer-card-panel">
+  <div
+    class="customer-card-panel"
+    :style="{ boxShadow: boxShadow }"
+  >
     <div class="customer-card-panel-item">
-      <CustomTitle :title="title" :bgImg="bgImg">
-        <template #TitleOperate>
+      <CustomTitle :title="title" :bgImg="bgImg" :height="height">
+        <template #TitleOperate v-if="showTitleOperate">
           <slot name="TitleOperate">
             <MoreTextBtn />
           </slot>
@@ -30,6 +33,18 @@ export default {
     bgImg: {
       type: String,
       required: true
+    },
+    height: {
+      type: [String, Number],
+      default: 48
+    },
+    showTitleOperate: {
+      type: Boolean,
+      default: true
+    },
+    boxShadow: {
+      type: String,
+      default: '0 4px 24px 0 rgba(0, 42, 255, 0.08)'
     }
   }
 }
@@ -37,12 +52,17 @@ export default {
 
 <style lang="scss" scoped>
 .customer-card-panel {
-  background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 24px 0 rgba(0, 42, 255, 0.08);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
   &-item {
-    // background: #fff;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
   }
 } 
 </style>

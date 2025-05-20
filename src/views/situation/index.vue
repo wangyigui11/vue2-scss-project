@@ -3,9 +3,11 @@
     <div class="top-panel">
       <div class="left">
         <TopCard />
+        <!-- 患者接收综合态势 -->
         <PatientReceptionStatus class="patient-reception-status" />
       </div>
       <div class="right">
+        <!-- 患者治疗综合态势 -->
         <PatientTreatmentStatus class="patient-treatment-status" />
       </div>
     </div>
