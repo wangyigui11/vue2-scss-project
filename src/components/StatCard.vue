@@ -1,5 +1,5 @@
 <template>
-  <div class="stat-card" :style="{ backgroundImage: 'url(' + bgImg + ')' }">
+  <div class="stat-card" :style="bgImageStyle">
     <div class="info">
       <div class="value">
         <span class="number">{{ value }}</span>
@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { getBgImageStyle } from '@/utils';
+
 export default {
   name: 'StatCard',
   props: {
@@ -18,6 +20,11 @@ export default {
     value: [String, Number],
     unit: String,
     desc: String
+  },
+  computed: {
+    bgImageStyle() {
+      return getBgImageStyle(this.bgImg);
+    }
   }
 }
 </script>
