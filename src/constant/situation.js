@@ -62,4 +62,28 @@ export const situationMap = {
     title: '患者地区分布',
     bgImg: cardCustomTitleMap.title2
   },
+  patientSourceAnalysis: {
+    title: '患者来源分析',
+    bgImg: cardCustomTitleMap.title2
+  },
+  patientQuantityAnalysis: {
+    title: '接收患者数量分析',
+    bgImg: cardCustomTitleMap.title2
+  },
+  reportAnalysis: {
+    title: '传染病报告情况分析',
+    bgImg: cardCustomTitleMap.title2
+  },
+  emergencyResourceUsage: {
+    title: '应急资源使用情况分析',
+    bgImg: cardCustomTitleMap.title2
+  },
+  emergencyResponseAnalysis: {
+    title: '应急响应情况分析',
+    bgImg: cardCustomTitleMap.title2
+  },
+  medicalResourceUsage: {
+    title: '诊治资源使用情况分析',
+    bgImg: cardCustomTitleMap.title2
+  },
 };

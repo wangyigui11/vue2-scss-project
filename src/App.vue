@@ -26,6 +26,7 @@ html, body {
 #app {
   width: 1920px;
   height: 1080px;
+  // overflow: hidden;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

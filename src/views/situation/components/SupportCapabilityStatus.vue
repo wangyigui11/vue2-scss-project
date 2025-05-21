@@ -47,15 +47,16 @@ export default {
 .support-capability-status-content {
   // background-color: #fff;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr;
   gap: 12px;
   height: 100%;
   padding: 8px;
+  align-items: center;
   .gauge-item {
     // background: #fff;
     border-radius: 8px;
-    height: 140px;
+    height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;

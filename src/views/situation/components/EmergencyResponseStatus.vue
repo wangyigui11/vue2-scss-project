@@ -1,12 +1,23 @@
 <template>
   <CustomerCardPanel v-bind="situationMap.emergencyResponse">
     <div class="emergency-response-status-content">
-      <div class="pie-charts">
-        <BaseEcharts :options="pieOptions" />
-      </div>
-      <div class="bar-charts">
-        <BaseEcharts :options="barOptions" />
-      </div>
+      <CustomerCardPanel class="emergency-resource-usage" v-bind="situationMap.emergencyResourceUsage"
+        :showTitleOperate="false">
+        <div class="charts-container">
+          <div class="pie-charts">
+            <BaseEcharts :options="pieOptions" />
+          </div>
+          <div class="bar-charts">
+            <BaseEcharts :options="emergencyResourceUsageBarOptions" />
+          </div>
+        </div>
+      </CustomerCardPanel>
+
+      <CustomerCardPanel class="emergency-response-analysis" v-bind="situationMap.emergencyResponseAnalysis"
+        :showTitleOperate="false">
+        <BaseEcharts :options="emergencyResponseAnalysisBarOptions" />
+      </CustomerCardPanel>
+
     </div>
   </CustomerCardPanel>
 </template>
@@ -15,7 +26,7 @@
 import CustomerCardPanel from '@/components/CustomerCardPanel.vue';
 import BaseEcharts from '@/components/BaseEcharts.vue';
 import { situationMap } from '@/constant/situation';
-import { createEmergencyResponsePieOption, createEmergencyResponseBarOption } from '@/utils/echarts';
+import { createEmergencyResponsePieOption, createEmergencyResponseBarOption, createEmergencyResourceUsageBarOption, createEmergencyResponseRadarOption } from '@/utils/echarts';
 
 export default {
   name: 'EmergencyResponseStatus',
@@ -24,7 +35,9 @@ export default {
     return {
       situationMap,
       pieOptions: createEmergencyResponsePieOption(),
-      barOptions: createEmergencyResponseBarOption()
+      barOptions: createEmergencyResponseBarOption(),
+      emergencyResourceUsageBarOptions: createEmergencyResourceUsageBarOption(),
+      emergencyResponseAnalysisBarOptions: createEmergencyResponseRadarOption()
     }
   }
 }
@@ -43,20 +56,35 @@ export default {
 
 .emergency-response-status-content {
   display: flex;
-  flex: 1;
+  flex-direction: column;
+  height: 100%;
   min-height: 0;
   padding: 8px;
-  // background-color: #fff;
-  .pie-charts {
-    width: 40%;
-    height: 100%;
-    margin-right: 8px;
-    border-radius: 4px;
+  gap: 8px;
+
+  .emergency-resource-usage,
+  .emergency-response-analysis {
+    height: 50%;
+    min-height: 0;
   }
-  .bar-charts {
-    flex: 1;
-    height: 100%;
-    border-radius: 4px;
+
+  .emergency-resource-usage {
+
+    .charts-container {
+      height: 100%;
+      display: flex;
+       gap: 8px;  
+
+    .pie-charts {
+      width: 40%;
+      height: 100%;
+    }
+
+    .bar-charts {
+      flex: 1;
+        height: 100%;
+      }
+    }
   }
 }
-</style> 
+</style>

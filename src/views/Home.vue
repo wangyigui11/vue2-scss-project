@@ -44,6 +44,7 @@ export default {
 
   .content {
     flex: 1;
+    overflow: hidden;
     padding: 8px 16px;
     box-sizing: border-box;
   }

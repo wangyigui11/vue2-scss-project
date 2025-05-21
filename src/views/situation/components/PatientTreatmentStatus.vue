@@ -1,45 +1,75 @@
 <template>
   <CustomerCardPanel v-bind="situationMap.patientTreatment">
     <div class="patient-treatment-status-content">
-      <div class="stat-card-list">
-        <StatCard class="stat-card-item" v-for="item in cards" :key="item.desc" v-bind="item" size="small" />
-      </div>
+      <div class="left-panel">
+        <div class="stat-card-list">
+          <StatCard
+            class="stat-card-item"
+            v-for="item in cards"
+            :key="item.desc"
+            v-bind="item"
+            size="small"
+          />
+        </div>
 
-      <div class="patient-treatment-status-chart">
-        <div class="chart-block gender-age">
-          <div class="gender-chart">
-            <CustomerCardPanel v-bind="situationMap.genderAnalysis" :height="36" :showTitleOperate="false"
-              :boxShadow="null">
-              <GenderChart />
-            </CustomerCardPanel>
-          </div>
-          <div class="age-chart">
-            <CustomerCardPanel v-bind="situationMap.ageAnalysis" :height="36" :showTitleOperate="false"
-              :boxShadow="null">
-              <AgePieChart />
-            </CustomerCardPanel>
+        <div class="map-charts-container">
+          <!-- 地图 -->
+          <div class="map-item"></div>
+          <div class="classify-grand-charts">
+            <!-- 分类诊治分析 -->
+            <div class="classify-chart">
+              <CustomerCardPanel
+                v-bind="situationMap.classifyAnalysis"
+                :height="36"
+                :showTitleOperate="false"
+                :boxShadow="null"
+              >
+                <ClassifyBarChart />
+              </CustomerCardPanel>
+            </div>
+            <div class="grade-chart">
+              <CustomerCardPanel
+                v-bind="situationMap.gradeAnalysis"
+                :height="36"
+                :showTitleOperate="false"
+                :boxShadow="null"
+              >
+                <LevelBarChart />
+              </CustomerCardPanel>
+            </div>
           </div>
         </div>
-        <div class="chart-block region">
-          <CustomerCardPanel v-bind="situationMap.patientRegion" :height="36" :showTitleOperate="false"
-            :boxShadow="null">
-            <div class="region-map-bg">
-            </div>
+      </div>
+      <div class="right-panel">
+        <div class="gender-chart">
+          <CustomerCardPanel
+            v-bind="situationMap.genderAnalysis"
+            :height="36"
+            :showTitleOperate="false"
+            :boxShadow="null"
+          >
+            <GenderChart />
           </CustomerCardPanel>
         </div>
-        <div class="chart-block classify-grade">
-          <div class="classify-chart">
-            <CustomerCardPanel v-bind="situationMap.classifyAnalysis" :height="36" :showTitleOperate="false"
-              :boxShadow="null">
-              <ClassifyBarChart />
-            </CustomerCardPanel>
-          </div>
-          <div class="grade-chart">
-            <CustomerCardPanel v-bind="situationMap.gradeAnalysis" :height="36" :showTitleOperate="false"
-              :boxShadow="null">
-              <LevelBarChart />
-            </CustomerCardPanel>
-          </div>
+        <div class="age-chart">
+          <CustomerCardPanel
+            v-bind="situationMap.ageAnalysis"
+            :height="36"
+            :showTitleOperate="false"
+            :boxShadow="null"
+          >
+            <AgePieChart />
+          </CustomerCardPanel>
+        </div>
+        <div class="resource-usage-chart">
+          <CustomerCardPanel
+            v-bind="situationMap.medicalResourceUsage"
+            :height="36"
+            :showTitleOperate="false"
+            :boxShadow="null"
+          >
+            <MedicalResourceUsage />
+          </CustomerCardPanel>
         </div>
       </div>
     </div>
@@ -47,16 +77,25 @@
 </template>
 
 <script>
-import CustomerCardPanel from '@/components/CustomerCardPanel.vue';
-import { situationMap, cardBgMap } from '@/constant/situation';
-import StatCard from '@/components/StatCard.vue';
-import GenderChart from './GenderChart.vue';
-import AgePieChart from './AgePieChart.vue';
-import ClassifyBarChart from './ClassifyBarChart.vue';  
-import LevelBarChart from './LevelBarChart.vue';
+import CustomerCardPanel from "@/components/CustomerCardPanel.vue";
+import { situationMap, cardBgMap } from "@/constant/situation";
+import StatCard from "@/components/StatCard.vue"; // Un-commented import
+import GenderChart from "./GenderChart.vue";
+import AgePieChart from "./AgePieChart.vue";
+import ClassifyBarChart from "./ClassifyBarChart.vue";
+import LevelBarChart from "./LevelBarChart.vue";
+import MedicalResourceUsage from "./MedicalResourceUsage.vue"; // New import for medical resource usage
 export default {
-  name: 'PatientTreatmentStatus',
-  components: { CustomerCardPanel, StatCard, GenderChart, AgePieChart, ClassifyBarChart, LevelBarChart },
+  name: "PatientTreatmentStatus",
+  components: {
+    CustomerCardPanel,
+    StatCard,
+    ClassifyBarChart,
+    LevelBarChart,
+    GenderChart,
+    AgePieChart,
+    MedicalResourceUsage,
+  },
   data() {
     return {
       situationMap,
@@ -64,25 +103,25 @@ export default {
         {
           bgImg: cardBgMap.bg2,
           value: 21520,
-          unit: '人',
-          desc: '病人总数'
+          unit: "人",
+          desc: "病人总数",
         },
         {
           bgImg: cardBgMap.bg2,
           value: 21520,
-          unit: '人',
-          desc: '治愈数'
+          unit: "人",
+          desc: "治愈数",
         },
         {
           bgImg: cardBgMap.bg2,
           value: 20,
-          unit: '类',
-          desc: '疾病数'
-        }
-      ]
-    }
-  }
-}
+          unit: "类",
+          desc: "疾病数",
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -91,97 +130,80 @@ export default {
   height: 100%;
   padding: 8px;
   display: flex;
-  flex-direction: column;
-  background-color: null;
+  gap: 8px;
 
-  .stat-card-list {
-    width: 100%;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    display: flex;
-    gap: 0;
-    height: 86px;
-    flex-shrink: 0;
-    align-items: center;
-
-    .stat-card-item {
-      width: 33.33%;
-    }
-
-    // justify-content: space-around;
-  }
-
-  .patient-treatment-status-chart {
-    display: flex;
+  .left-panel {
+    width: 70%;
     height: 100%;
-    gap: 16px;
+    // background-color: #f0f0f0;
+    // border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 
-    .chart-block {
-      height: 100%;
-
-      // border-radius: 8px;
-      // box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      // display: flex;
-      // align-items: center;
-      // justify-content: center;
-      // border: 1px solid #000;
-      // 你可以根据需要添加padding等
-    }
-
-    .gender-age {
-      width: 30%;
-      min-width: 220px;
-      // background: #fff;
+    .stat-card-list {
+      width: 100%;
+      margin-top: 8px;
       display: flex;
-      flex-direction: column;
+      height: 86px;
+      flex-shrink: 0;
+      align-items: center;
+
+      .stat-card-item {
+        width: 33.33%;
+      }
+
+      // justify-content: space-around;
+    }
+
+    .map-charts-container {
+      flex: 1;
       height: 100%;
 
-      .gender-chart {
-        flex: 1;
-        min-height: 0;
-        // margin-bottom: 8px;
+      display: flex;
+      gap: 8px;
+
+      .map-item {
+        width: 50%;
+        // width: 100%;
+        height: 100%;
+        // background: url('@/assets/map.png') center center / cover no-repeat;
+        background: url("@/assets/map.png") center center / 100% auto no-repeat;
+        background-color: transparent;
       }
-
-      .age-chart {
+      .classify-grand-charts {
         flex: 1;
-        min-height: 0;
+        height: 100%;
+        // border: 1px solid blue;
+
+        .classify-chart {
+          height: 50%;
+        }
+        .grade-chart {
+          height: 50%;
+        }
       }
-    }
-
-    .region {
-      width: 30%;
-      min-width: 220px;
-    }
-
-    .classify {
-      flex: 1;
-      min-width: 0;
-      // background: #fff;
-
     }
   }
-}
-
-.region-map-bg {
-  width: 100%;
-  height: 100%;
-  background: url('@/assets/map.png') center center / cover no-repeat;
-  background-color: transparent;
-}
-
-.classify-grade {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  .classify-chart,
-  .grade-chart {
+  .right-panel {
+    // width: 50%;
     flex: 1;
-    min-height: 0;
-  }
-  .classify-chart {
-    margin-bottom: 8px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .gender-chart {
+      width: 100%;
+      flex: 1;
+    }
+    .age-chart {
+      width: 100%;
+      flex: 1;
+    }
+    .resource-usage-chart {
+      flex: 1;
+      width: 100%;
+    }
   }
 }
 </style>
